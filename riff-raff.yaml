@@ -1,0 +1,20 @@
+stacks: [frontend]
+regions: [eu-west-1]
+
+deployments:
+  affiliate-link-checker:
+    type: aws-lambda
+    dependencies: [affiliate-link-checker-cloudformation]
+    parameters:
+      prefixStack: false
+      bucket: aws-frontend-artifacts
+      fileName: affiliate-link-checker.zip
+      functionNames: [affiliate-link-checker-]
+  affiliate-link-checker-cloudformation:
+    type: cloud-formation
+    app: affiliate-link-checker
+    parameters:
+      prependStackToCloudFormationStackName: false
+      cloudFormationStackName: affiliate-link-checker
+      templatePath: cloudformation/cloudformation.yaml
+      cloudFormationStackByTags: false
