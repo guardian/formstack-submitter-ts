@@ -1,0 +1,31 @@
+{
+  "name": "affiliate-link-checker",
+  "isAwsLambda": true,
+  "cloudformation": "cloudformation.yaml",
+  "projectName": "dotcom::affiliate-link-checker",
+  "buildDir": "./target",
+  "riffraffFile": "./riff-raff.yaml",
+  "dependencies": {
+    "async-sema": "^2.1.4",
+    "aws-sdk": "^2.345.0",
+    "moment": "2.22.2",
+    "node-fetch": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.1",
+    "node-riffraff-artefact": "^2.0.1",
+    "prettier": "^1.14.3",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.1.4"
+  },
+  "scripts": {
+    "clean": "rm -rf target",
+    "lint": "yarn tslint -p .",
+    "fix": "yarn tslint -p . --fix",
+    "build": "tsc",
+    "local": "node target/local.js",
+    "package": "ARTEFACT_PATH=$PWD/target VERBOSE=true riffraff-artefact"
+  }
+}

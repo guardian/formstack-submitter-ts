@@ -1,0 +1,80 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Looks for articles with affiliate links that we published today
+
+Parameters:
+  Stack:
+    Description: Stack name
+    Type: String
+    Default: frontend
+  App:
+    Description: Application name
+    Type: String
+    Default: affiliate-link-checker
+  Stage:
+    Description: Stage name
+    Type: String
+    AllowedValues:
+      - CODE
+      - PROD
+  DeployBucket:
+    Description: Bucket to copy files to
+    Type: String
+    Default: aws-frontend-artifacts
+  ManifestURL:
+    Description: URL of the latest manifest file (should redirect)
+    Type: String
+  KindleBucket:
+    Description: S3 bucket with the generated kindle files
+    Type: String
+  SourceAddress:
+    Description: Source email address
+    Type: String
+  PassTargetAddresses:
+    Description: Comma-separated list of target email addresses to use when tests pass
+    Type: String
+  FailureTargetAddresses:
+    Description: Comma-separated list of target email addresses to use when tests fail
+    Type: String
+  MinimumArticleCount:
+    Description: Minimum expected articles in an edition
+    Type: Number
+  RunHours:
+    Description: Comma-separated list of hours in which the lambda should run (because cloudwatch only allows UTC)
+    Type: String
+    Default: "0,1"
+  TimeZone:
+    Description: Timezone the environment should adopt (because cloudwatch only allows UTC)
+    Type: String
+    Default: "Europe/London"
+Resources:
+  Lambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${App}-${Stage}
+      Description: Checks the status of Kindle publication and sends emails
+      Runtime: nodejs8.10
+      Handler: lambda.handler
+      MemorySize: 128
+      Timeout: 300
+      Environment:
+        Variables:
+          ManifestURL: !Ref ManifestURL
+          KindleBucket: !Ref KindleBucket
+          Stage: !Ref Stage
+          SourceAddress: !Ref SourceAddress
+          PassTargetAddresses: !Ref PassTargetAddresses
+          FailureTargetAddresses: !Ref FailureTargetAddresses
+          MinimumArticleCount: !Ref MinimumArticleCount
+          RunHours: !Ref RunHours
+          TZ: !Ref TimeZone
+      CodeUri:
+        Bucket: !Ref DeployBucket
+        Key: !Sub ${Stack}/${Stage}/${App}/${App}.zip
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Events:
+        DailyRun:
+          Type: Schedule
+          Properties:
+            Schedule: cron(00 1 * * ? *)  # Run at 01:00 AM GMT (UTC+0) every day
