@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-npm install -g yarn
-
 yarn install
 # Will place .js files in target
 yarn run build
