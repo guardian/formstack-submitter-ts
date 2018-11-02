@@ -21,32 +21,9 @@ Parameters:
     Description: Bucket to copy files to
     Type: String
     Default: aws-frontend-artifacts
-  ManifestURL:
-    Description: URL of the latest manifest file (should redirect)
+  CapiKey:
+    Description: CAPI Key
     Type: String
-  KindleBucket:
-    Description: S3 bucket with the generated kindle files
-    Type: String
-  SourceAddress:
-    Description: Source email address
-    Type: String
-  PassTargetAddresses:
-    Description: Comma-separated list of target email addresses to use when tests pass
-    Type: String
-  FailureTargetAddresses:
-    Description: Comma-separated list of target email addresses to use when tests fail
-    Type: String
-  MinimumArticleCount:
-    Description: Minimum expected articles in an edition
-    Type: Number
-  RunHours:
-    Description: Comma-separated list of hours in which the lambda should run (because cloudwatch only allows UTC)
-    Type: String
-    Default: "0,1"
-  TimeZone:
-    Description: Timezone the environment should adopt (because cloudwatch only allows UTC)
-    Type: String
-    Default: "Europe/London"
 Resources:
   Lambda:
     Type: AWS::Serverless::Function
@@ -59,20 +36,20 @@ Resources:
       Timeout: 300
       Environment:
         Variables:
-          ManifestURL: !Ref ManifestURL
-          KindleBucket: !Ref KindleBucket
           Stage: !Ref Stage
-          SourceAddress: !Ref SourceAddress
-          PassTargetAddresses: !Ref PassTargetAddresses
-          FailureTargetAddresses: !Ref FailureTargetAddresses
-          MinimumArticleCount: !Ref MinimumArticleCount
-          RunHours: !Ref RunHours
-          TZ: !Ref TimeZone
+          CAPIKEY: !Ref CapiKey
       CodeUri:
         Bucket: !Ref DeployBucket
         Key: !Sub ${Stack}/${Stage}/${App}/${App}.zip
       Policies:
         - AWSLambdaBasicExecutionRole
+        - Statement:
+            Effect: Allow
+            Action:
+              - s3:ListBucket
+              - s3:PutObject
+              - s3:GetObject
+            Resource: "arn:aws:s3::*:ophan-raw-affiliate-link" 
       Events:
         DailyRun:
           Type: Schedule

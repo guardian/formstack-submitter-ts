@@ -25,7 +25,7 @@
     "lint": "yarn tslint -p .",
     "fix": "yarn tslint -p . --fix",
     "build": "tsc",
-    "local": "node target/local.js",
+    "local": "AWS_PROFILE=frontend node target/local.js",
     "package": "ARTEFACT_PATH=$PWD/target VERBOSE=true riffraff-artefact"
   }
 }

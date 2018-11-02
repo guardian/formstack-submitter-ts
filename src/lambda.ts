@@ -21,7 +21,6 @@ export const handler = async (event: { date?: string }): Promise<void> => {
         "music",
         "stage"
       ],
-      tag: "tone/news",
       pageSize: 200
     },
     date
