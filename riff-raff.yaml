@@ -9,7 +9,7 @@ deployments:
       bucket: aws-frontend-artifacts
       fileName: affiliate-link-checker.zip
       functionNames: [affiliate-link-checker-]
-         dependencies: [skimlinks-lambda-cfn]
+        dependencies: [skimlinks-lambda-cfn]
   affiliate-link-checker-cloudformation:
     type: cloud-formation
     app: affiliate-link-checker
