@@ -4,7 +4,7 @@ regions: [eu-west-1]
 deployments:
   affiliate-link-checker:
     type: aws-lambda
-    dependencies: [skimlinks-lambda-cfn]
+    dependencies: [affiliate-link-checker-cloudformation]
     parameters:
       prefixStack: false
       bucket: aws-frontend-artifacts
