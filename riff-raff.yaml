@@ -16,5 +16,5 @@ deployments:
     parameters:
       prependStackToCloudFormationStackName: false
       cloudFormationStackName: affiliate-link-checker
-      templatePath: cloudformation.yaml
+      templatePath: cloudformation/cloudformation.yaml
       cloudFormationStackByTags: false
