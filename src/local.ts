@@ -1,12 +1,15 @@
-import AWS = require("aws-sdk");
-import { handler } from "./lambda";
-
-AWS.config.update({
-  region: "eu-west-1"
-});
+// const myHandler = require('./lambda').handler;
+import {handler} from "./lambda"
 
 const run = async () => {
-  await handler({ date: "2018-07-03" });
+  let payload = { 
+                  "question1": "my answer",
+                  "question2": "my answer 2"
+                 };
+
+  await handler(
+    payload
+  )
 };
 
 run();
