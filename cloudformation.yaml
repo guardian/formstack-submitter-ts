@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: Looks for articles with affiliate links that we published today
+Description: Forwards POST requests from Frontend & MAPI to our Formstack account 
 
 Parameters:
   Stack:
@@ -10,7 +10,7 @@ Parameters:
   App:
     Description: Application name
     Type: String
-    Default: affiliate-link-checker
+    Default: formstack-submitter
   Stage:
     Description: Stage name
     Type: String
@@ -29,7 +29,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${App}-${Stage}
-      Description: Checks the status of Kindle publication and sends emails
+      Description: Sends requests to Formstack 
       Runtime: nodejs8.10
       Handler: lambda.handler
       MemorySize: 128
