@@ -1,7 +1,8 @@
+import * as dotenv from "dotenv";
 import { sendToFormstack } from "./submitter";
+dotenv.config();
 
-export const handler = async (event, context, callback): Promise<void> => {
+export const handler = async (): Promise<void> => {
   console.log(`Formstack Submitter ran`);
-  console.log("event", event);
-  sendToFormstack(event.data);
+  sendToFormstack(process.env.FORMSTACK_URL);
 };
