@@ -2,7 +2,7 @@
   "name": "formstack-submitter-ts",
   "isAwsLambda": true,
   "cloudformation": "cloudformation.yaml",
-  "projectName": "frontend::formstack-submitter-ts",
+  "projectName": "Content Platforms::formstack-submitter-ts",
   "buildDir": "./target",
   "riffraffFile": "./riff-raff.yaml",
   "dependencies": {

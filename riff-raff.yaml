@@ -1,20 +1,20 @@
-stacks: [frontend]
+stacks: [content-api]
 regions: [eu-west-1]
 
 deployments:
-  formstack-submitter:
+  formstack-submitter-ts:
     type: aws-lambda
-    dependencies: [formstack-submitter-cloudformation]
+    dependencies: [formstack-submitter-ts-cloudformation]
     parameters:
       prefixStack: false
-      bucket: aws-frontend-artifacts
-      fileName: formstack-submitter.zip
-      functionNames: [formstack-submitter-]
-  formstack-submitter-cloudformation:
+      bucket: content-api-dist
+      fileName: formstack-ts-submitter.zip
+      functionNames: [formstack-submitter-ts-]
+  formstack-submitter-ts-cloudformation:
     type: cloud-formation
-    app: formstack-submitter
+    app: formstack-submitter-ts
     parameters:
       prependStackToCloudFormationStackName: false
-      cloudFormationStackName: formstack-submitter
+      cloudFormationStackName: formstack-submitter-ts
       templatePath: cloudformation/cloudformation.yaml
       cloudFormationStackByTags: false
