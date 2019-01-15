@@ -1,4 +1,6 @@
+import * as dotenv from "dotenv";
 import * as fetch from "node-fetch";
+dotenv.config();
 
 /** The form submission API is accessible at /form/:formId/submission.json
  * - The formId is extracted
@@ -8,9 +10,6 @@ import * as fetch from "node-fetch";
  */
 
 // 1. Receive Post request
-
-const testHeaders = {};
-
 // 2. Format request.
 
 /** Transform a response into valid API gateway format:
@@ -21,25 +20,31 @@ const testHeaders = {};
  * }
  */
 
-const headers = {
+const reqHeaders = {
   method: "post",
-  headers: { "Content-Type": "application/json" },
-  isBase64Encoded: false,
-  statusCode: "200"
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: `Bearer ${process.env.AUTH_TOKEN}`
+  }
 };
 
-const body = {
-  field_61988637: "short 1",
-  field_61988638: "longer better answer",
-  field_61988639: "Option1\nOption2\nOption3\nOption4",
-  field_61988640: "Option 1"
+const reqBody = {
+  body: {
+    field_61988637: "short 1",
+    field_61988638: "longer better answer comes from the test lambda",
+    field_61988639: "Option1\nOption2\nOption3\nOption4",
+    field_61988640: "Option 1"
+  }
 };
 
 // 3. Send to Formstack
 export const sendToFormstack = (formstackUrl: string) => {
-  const request: object = { ...headers, ...body };
+  const request: object = { ...reqHeaders, ...reqBody };
+
+  console.log("request is:", request);
   fetch(formstackUrl, request)
     .then(res => res.json())
     .then(json => console.log(json))
-    .catch(err => console.error(`POST request failed: ${err}`));
+    .catch(err => console.error(`POST request to Formstack failed: ${err}`));
 };

@@ -21,9 +21,6 @@ Parameters:
     Description: Bucket to copy files to
     Type: String
     Default: aws-frontend-artifacts
-  CapiKey:
-    Description: CAPI Key
-    Type: String
 Resources:
   Lambda:
     Type: AWS::Serverless::Function
@@ -37,21 +34,8 @@ Resources:
       Environment:
         Variables:
           Stage: !Ref Stage
-          CAPIKEY: !Ref CapiKey
       CodeUri:
         Bucket: !Ref DeployBucket
         Key: !Sub ${Stack}/${Stage}/${App}/${App}.zip
       Policies:
         - AWSLambdaBasicExecutionRole
-        - Statement:
-            Effect: Allow
-            Action:
-              - s3:ListBucket
-              - s3:PutObject
-              - s3:GetObject
-            Resource: "arn:aws:s3::*:ophan-raw-affiliate-link" 
-      Events:
-        DailyRun:
-          Type: Schedule
-          Properties:
-            Schedule: cron(00 1 * * ? *)  # Run at 01:00 AM GMT (UTC+0) every day

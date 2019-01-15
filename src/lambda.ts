@@ -1,12 +1,8 @@
-import { dotenv } from "dotenv";
+import * as dotenv from "dotenv";
 import { sendToFormstack } from "./submitter";
+dotenv.config();
 
-export const handler = async (payload): Promise<void> => {
+export const handler = async (): Promise<void> => {
   console.log(`Formstack Submitter ran`);
-  console.log(`Payload was ${payload}`);
-  sendToFormstack(testBody, "https://httpbin.org/post");
-};
-
-const requestForwarder = (data: string) => {
-  console.log("request forwarder ran");
+  sendToFormstack(process.env.FORMSTACK_URL);
 };
