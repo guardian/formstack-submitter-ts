@@ -8,7 +8,7 @@ deployments:
     parameters:
       prefixStack: false
       bucket: content-api-dist
-      fileName: formstack-ts-submitter.zip
+      fileName: formstack-submitter-ts.zip
       functionNames: [formstack-submitter-ts-]
   formstack-submitter-ts-cloudformation:
     type: cloud-formation
