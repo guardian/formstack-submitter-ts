@@ -8,9 +8,9 @@ deployments:
     parameters:
       prefixStack: false
       bucket: aws-frontend-artifacts
-      fileName: formstack-submitter-zip
-      functionNames: [formstack-submitter]
-  formstack-submittercloudformation:
+      fileName: formstack-submitter.zip
+      functionNames: [formstack-submitter-]
+  formstack-submitter-cloudformation:
     type: cloud-formation
     app: formstack-submitter
     parameters:
