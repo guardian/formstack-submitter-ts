@@ -1,8 +1,13 @@
 // const myHandler = require('./lambda').handler;
 import { handler } from "./lambda";
 
-const run = async () => {
-  await handler();
+const fakeEvent = {
+  data: {
+    headers: "hello",
+    body: {}
+  }
 };
+
+const run = async () => await handler(fakeEvent);
 
 run();
