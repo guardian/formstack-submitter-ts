@@ -9,9 +9,6 @@ dotenv.config();
  *   compliant
  */
 
-// 1. Receive Post request
-// 2. Format request.
-
 /** Transform a response into valid API gateway format:
  * {
  *   "isBase64Encoded": Bool,
@@ -25,21 +22,32 @@ const reqHeaders = {
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    Authorization: `Bearer ${process.env.AUTH_TOKEN}`
+    Authorization: `Bearer ${process.env.OAUTH_TOKEN}`
   }
 };
 
-const reqBody = {
-  body: {
-    field_61988637: "short 1",
-    field_61988638: "longer better answer comes from the test lambda",
-    field_61988639: "Option1\nOption2\nOption3\nOption4",
-    field_61988640: "Option 1"
-  }
+const getReqBody = data => {
+  return {
+    body: {
+      field_61988637: "short 1",
+      field_61988638: "longer better answer comes from the test lambda",
+      field_61988639: "Option1\nOption2\nOption3\nOption4",
+      field_61988640: "Option 1"
+    }
+  };
+};
+
+const getFormId = data => "/";
+
+const getFullUrl = (formId: string) => {
+  return `${process.env.FORMSTACK_URL}/${formId}submission.json`;
 };
 
 // 3. Send to Formstack
-export const sendToFormstack = (formstackUrl: string) => {
+export const sendToFormstack = (data: object) => {
+  const formId: string = getFormId(data);
+  const formstackUrl: string = getFullUrl(formId);
+  const reqBody: object = getReqBody(data);
   const request: object = { ...reqHeaders, ...reqBody };
 
   console.log("request is:", request);
