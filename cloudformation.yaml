@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
-Description: Looks for articles with affiliate links that we published today
+Description: Forwards POST requests from Frontend & MAPI to our Formstack account 
 
 Parameters:
   Stack:
@@ -10,7 +10,7 @@ Parameters:
   App:
     Description: Application name
     Type: String
-    Default: affiliate-link-checker
+    Default: formstack-submitter
   Stage:
     Description: Stage name
     Type: String
@@ -21,15 +21,12 @@ Parameters:
     Description: Bucket to copy files to
     Type: String
     Default: aws-frontend-artifacts
-  CapiKey:
-    Description: CAPI Key
-    Type: String
 Resources:
   Lambda:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${App}-${Stage}
-      Description: Checks the status of Kindle publication and sends emails
+      Description: Sends requests to Formstack 
       Runtime: nodejs8.10
       Handler: lambda.handler
       MemorySize: 128
@@ -37,21 +34,8 @@ Resources:
       Environment:
         Variables:
           Stage: !Ref Stage
-          CAPIKEY: !Ref CapiKey
       CodeUri:
         Bucket: !Ref DeployBucket
         Key: !Sub ${Stack}/${Stage}/${App}/${App}.zip
       Policies:
         - AWSLambdaBasicExecutionRole
-        - Statement:
-            Effect: Allow
-            Action:
-              - s3:ListBucket
-              - s3:PutObject
-              - s3:GetObject
-            Resource: "arn:aws:s3::*:ophan-raw-affiliate-link" 
-      Events:
-        DailyRun:
-          Type: Schedule
-          Properties:
-            Schedule: cron(00 1 * * ? *)  # Run at 01:00 AM GMT (UTC+0) every day

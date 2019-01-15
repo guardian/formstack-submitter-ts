@@ -2,19 +2,19 @@ stacks: [frontend]
 regions: [eu-west-1]
 
 deployments:
-  affiliate-link-checker:
+  formstack-submitter:
     type: aws-lambda
-    dependencies: [affiliate-link-checker-cloudformation]
+    dependencies: [formstack-submitter-cloudformation]
     parameters:
       prefixStack: false
       bucket: aws-frontend-artifacts
-      fileName: affiliate-link-checker.zip
-      functionNames: [affiliate-link-checker-]
-  affiliate-link-checker-cloudformation:
+      fileName: formstack-submitter.zip
+      functionNames: [formstack-submitter-]
+  formstack-submitter-cloudformation:
     type: cloud-formation
-    app: affiliate-link-checker
+    app: formstack-submitter
     parameters:
       prependStackToCloudFormationStackName: false
-      cloudFormationStackName: affiliate-link-checker
+      cloudFormationStackName: formstack-submitter
       templatePath: cloudformation/cloudformation.yaml
       cloudFormationStackByTags: false
