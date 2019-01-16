@@ -42,13 +42,15 @@ const getFormId = data => {
   }
 };
 
-const getFullUrl = (formId: string) => {
+const getFullUrl = (formId: string): string => {
   return `${process.env.FORMSTACK_URL}/${formId}/submission.json`;
 };
 
 export const sendToFormstack = async (data: object) => {
   const formId: string = getFormId(data);
+  console.log("FormID", formId);
   const formstackUrl: string = getFullUrl(formId);
+  console.log("full url", formstackUrl);
   const reqBody: object = getDataBody(data);
   const request = { ...reqHeaders, body: reqBody };
 
