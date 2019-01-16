@@ -47,7 +47,6 @@ export const sendToFormstack = async (data: object) => {
 
   await fetch(formstackUrl, request)
     .then(res => {
-      console.log("Request succeeded with status", res.status);
       console.log("Response", res);
       return res.json();
     })
