@@ -26,31 +26,28 @@ const reqHeaders = {
   }
 };
 
-const getReqBody = data => {
-  return {
-    body: {
-      field_61988637: "short 1",
-      field_61988638: "longer better answer comes from the test lambda",
-      field_61988639: "Option1\nOption2\nOption3\nOption4",
-      field_61988640: "Option 1"
-    }
-  };
-};
+const getDataBody = data => data.body;
 
-const getFormId = data => "/";
+const getFormId = data => {
+  try {
+    return data.body.formId;
+  } catch (err) {
+    console.error("Missing Form Id in request payload", err);
+  }
+};
 
 const getFullUrl = (formId: string) => {
-  return `${process.env.FORMSTACK_URL}/${formId}submission.json`;
+  return `${process.env.FORMSTACK_URL}/${formId}/submission.json`;
 };
 
-// 3. Send to Formstack
 export const sendToFormstack = (data: object) => {
   const formId: string = getFormId(data);
   const formstackUrl: string = getFullUrl(formId);
-  const reqBody: object = getReqBody(data);
-  const request: object = { ...reqHeaders, ...reqBody };
+  const reqBody: object = getDataBody(data);
+  const request: object = { ...reqHeaders, body: reqBody };
 
   console.log("request is:", request);
+
   fetch(formstackUrl, request)
     .then(res => res.json())
     .then(json => console.log(json))
