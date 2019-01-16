@@ -51,7 +51,7 @@ export const sendToFormstack = (data: object) => {
   const formId: string = getFormId(data);
   const formstackUrl: string = getFullUrl(formId);
   const reqBody: object = getDataBody(data);
-  const request: object = { ...reqHeaders, body: reqBody };
+  const request = { ...reqHeaders, body: reqBody };
 
   console.log("request is:", request);
 
