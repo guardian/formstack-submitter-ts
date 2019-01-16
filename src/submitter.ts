@@ -51,12 +51,12 @@ export const sendToFormstack = (data: object) => {
   const formId: string = getFormId(data);
   const formstackUrl: string = getFullUrl(formId);
   const reqBody: object = getDataBody(data);
-  const request: object = { ...reqHeaders, body: reqBody };
+  const request = { ...reqHeaders, body: reqBody };
 
   console.log("request is:", request);
 
   fetch(formstackUrl, request)
     .then(res => res.json())
-    .then(json => console.log(json))
+    .then(json => console.log("RESPONSE", json))
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));
 };
