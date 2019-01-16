@@ -26,7 +26,13 @@ const reqHeaders = {
   }
 };
 
-const getDataBody = data => data.body;
+const getDataBody = data => {
+  try {
+    return data.body;
+  } catch (err) {
+    console.error("Missing body property in request payload", err);
+  }
+};
 
 const getFormId = data => {
   try {
@@ -41,6 +47,7 @@ const getFullUrl = (formId: string) => {
 };
 
 export const sendToFormstack = (data: object) => {
+  console.log("DATA here", data);
   const formId: string = getFormId(data);
   const formstackUrl: string = getFullUrl(formId);
   const reqBody: object = getDataBody(data);

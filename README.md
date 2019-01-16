@@ -6,6 +6,6 @@ The data comes from reader callout forms submitted on the user interface.
 
 # To test locally
 
-Run the local file: `npm run runLocal`
+Run the local file: `npm run runlocal`
 
 
