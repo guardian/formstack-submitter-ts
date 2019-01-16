@@ -46,8 +46,7 @@ const getFullUrl = (formId: string) => {
   return `${process.env.FORMSTACK_URL}/${formId}/submission.json`;
 };
 
-export const sendToFormstack = (data: object) => {
-  console.log("DATA here", data);
+export const sendToFormstack = async (data: object) => {
   const formId: string = getFormId(data);
   const formstackUrl: string = getFullUrl(formId);
   const reqBody: object = getDataBody(data);
@@ -55,8 +54,11 @@ export const sendToFormstack = (data: object) => {
 
   console.log("request is:", request);
 
-  fetch(formstackUrl, request)
-    .then(res => res.json())
+  await fetch(formstackUrl, request)
+    .then(res => {
+      console.log("RESULT", res);
+      return res.json();
+    })
     .then(json => console.log("RESPONSE", json))
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));
 };
