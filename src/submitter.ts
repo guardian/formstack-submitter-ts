@@ -26,12 +26,12 @@ const getDataBody = data => {
   }
 };
 
-const getFormId = data => {
-  try {
-    const parsedData = JSON.parse(data.body);
+const getFormId = (data): string => {
+  const parsedData = JSON.parse(data.body);
+  if (parsedData.formId) {
     return parsedData.formId;
-  } catch (err) {
-    console.error("Missing Form Id in request payload", err);
+  } else {
+    console.error("Missing Form Id in request payload");
   }
 };
 
@@ -41,19 +41,16 @@ const getFullUrl = (formId: string): string => {
 
 export const sendToFormstack = async (data: object) => {
   const formId: string = getFormId(data);
-  console.log("FormID", formId);
   const formstackUrl: string = getFullUrl(formId);
-  console.log("full url", formstackUrl);
   const reqBody: object = getDataBody(data);
-  const request = { ...reqHeaders, body: reqBody };
-
-  console.log("request is:", request);
+  const request: object = { ...reqHeaders, body: reqBody };
 
   await fetch(formstackUrl, request)
     .then(res => {
-      console.log("RESULT", res);
+      console.log("Request succeeded with status", res.status);
+      console.log("Response", res);
       return res.json();
     })
-    .then(json => console.log("RESPONSE", json))
+    .then(json => console.log(json))
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));
 };
