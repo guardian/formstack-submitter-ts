@@ -9,14 +9,6 @@ dotenv.config();
  *   compliant
  */
 
-/** Transform a response into valid API gateway format:
- * {
- *   "isBase64Encoded": Bool,
- *   "statusCode": String,
- *   "body": String
- * }
- */
-
 const reqHeaders = {
   method: "post",
   headers: {
@@ -36,7 +28,8 @@ const getDataBody = data => {
 
 const getFormId = data => {
   try {
-    return data.body.formId;
+    const parsedData = JSON.parse(data.body);
+    return parsedData.formId;
   } catch (err) {
     console.error("Missing Form Id in request payload", err);
   }
