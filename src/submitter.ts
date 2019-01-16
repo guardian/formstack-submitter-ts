@@ -57,6 +57,6 @@ export const sendToFormstack = (data: object) => {
 
   fetch(formstackUrl, request)
     .then(res => res.json())
-    .then(json => console.log(json))
+    .then(json => console.log("RESPONSE", json))
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));
 };
