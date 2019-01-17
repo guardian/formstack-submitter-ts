@@ -38,9 +38,9 @@ const getFullUrl = (formId: string): string => {
   return `${process.env.FORMSTACK_URL}/${formId}/submission.json`;
 };
 
-// API Gateway requires all responses returned from the lambda to be in this format
-const cleanResponse = (res): object => {
-  return {
+// API Gateway requires all responses returned from the lambda to be valid JSON in this format
+const cleanResponse = (res): string => {
+  const respObj = {
     isBase64Encoded: false,
     statusCode: `${res.status}`,
     headers: {
@@ -48,6 +48,7 @@ const cleanResponse = (res): object => {
     },
     body: ""
   };
+  return JSON.stringify(respObj);
 };
 
 export const sendToFormstack = async (data: object) => {
