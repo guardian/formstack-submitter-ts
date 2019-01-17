@@ -2,12 +2,7 @@ import * as dotenv from "dotenv";
 import * as fetch from "node-fetch";
 dotenv.config();
 
-/** The form submission API is accessible at /form/:formId/submission.json
- * - The formId is extracted
- * - The HTTP call is created
- * - ... then sent, the response being post-processed to be API Gateway
- *   compliant
- */
+// The request from dotcom/mapi is parsed and forwarded onto Formstack, the response is then sent back to Frontend
 
 const reqHeaders = {
   method: "post",
@@ -43,6 +38,15 @@ const getFullUrl = (formId: string): string => {
   return `${process.env.FORMSTACK_URL}/${formId}/submission.json`;
 };
 
+const cleanResponse = (res): object => {
+  return {
+    isBase64Encoded: false,
+    statusCode: res.status,
+    headers: res.headers,
+    body: res.body
+  };
+};
+
 export const sendToFormstack = async (data: object) => {
   const formId: string = getFormId(data);
   const formstackUrl: string = getFullUrl(formId);
@@ -52,7 +56,7 @@ export const sendToFormstack = async (data: object) => {
   await fetch(formstackUrl, request)
     .then(res => {
       console.log(res);
-      return res;
+      return cleanResponse(res);
     })
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));
 };
