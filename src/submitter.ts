@@ -19,10 +19,10 @@ const reqHeaders = {
 };
 
 const getDataBody = data => {
-  try {
+  if (data.body) {
     return data.body;
-  } catch (err) {
-    console.error("Missing body property in request payload", err);
+  } else {
+    console.error("Missing body property in request payload");
   }
 };
 
@@ -50,6 +50,6 @@ export const sendToFormstack = async (data: object) => {
       console.log("Response", res);
       return res.json();
     })
-    .then(json => console.log(json))
+    .then(json => json)
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));
 };
