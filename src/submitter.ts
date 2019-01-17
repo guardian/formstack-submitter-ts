@@ -38,12 +38,15 @@ const getFullUrl = (formId: string): string => {
   return `${process.env.FORMSTACK_URL}/${formId}/submission.json`;
 };
 
+// API Gateway requires all responses returned from the lambda to be in this format
 const cleanResponse = (res): object => {
   return {
     isBase64Encoded: false,
-    statusCode: res.status,
-    headers: res.headers,
-    body: res.body
+    statusCode: `${res.status}`,
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    },
+    body: ""
   };
 };
 
@@ -55,7 +58,7 @@ export const sendToFormstack = async (data: object) => {
 
   await fetch(formstackUrl, request)
     .then(res => {
-      console.log(res);
+      console.log(cleanResponse(res));
       return cleanResponse(res);
     })
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));
