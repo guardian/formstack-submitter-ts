@@ -27,11 +27,15 @@ const getDataBody = data => {
 };
 
 const getFormId = (data): string => {
-  const parsedData = JSON.parse(data.body);
-  if (parsedData.formId) {
-    return parsedData.formId;
-  } else {
-    console.error("Missing Form Id in request payload");
+  try {
+    const parsedData = JSON.parse(data.body);
+    if (parsedData.formId) {
+      return parsedData.formId;
+    } else {
+      console.error("Missing form id in request payload");
+    }
+  } catch (e) {
+    console.error(`Invalid JSON - failed to parse payload ${data.body}`, e);
   }
 };
 
