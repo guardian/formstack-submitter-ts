@@ -13,6 +13,9 @@ export const handler = async (event, context, callback): Promise<void> => {
       "multiValueHeaders": { "headerName": ["headerValue", "headerValue2"]},
       "body": "..."
      }`;
+
+    console.log("RESULT TEST", resultTest);
+    console.log("CALLBACK FUNCTION", callback);
     callback(null, resultTest);
   } catch (err) {
     console.log(err);
