@@ -6,13 +6,12 @@ export const handler = async (event, context, callback): Promise<void> => {
   try {
     const result = await sendToFormstack(event);
     console.log("ACTUAL RESULT", result);
-    const resultTest: string = `{
-      "isBase64Encoded": false,
-      "statusCode": 201,
-      "headers": { "headerName": "headerValue"},
-      "multiValueHeaders": { "headerName": ["headerValue", "headerValue2"]},
-      "body": "..."
-     }`;
+    const resultTest: object = {
+      isBase64Encoded: false,
+      statusCode: 201,
+      headers: { headerName: "headerValue" },
+      body: "..."
+    };
 
     console.log("RESULT TEST", resultTest);
     console.log("CALLBACK FUNCTION", callback);
