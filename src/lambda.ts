@@ -12,10 +12,7 @@ export const handler = async (event, context, callback): Promise<void> => {
       headers: { headerName: "headerValue" },
       body: "..."
     };
-
-    console.log("RESULT TEST", resultTest);
-    console.log("CALLBACK FUNCTION", callback);
-    callback(null, resultTest);
+    callback(null, result);
   } catch (err) {
     console.log(err);
     callback(err);
