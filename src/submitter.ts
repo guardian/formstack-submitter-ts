@@ -39,16 +39,16 @@ const getFullUrl = (formId: string): string => {
 };
 
 // API Gateway requires all responses returned from the lambda to be valid JSON in this format
-const cleanResponse = (res): object => {
+const cleanResponse = (res): string => {
   const respObj = {
     isBase64Encoded: false,
     statusCode: res.status,
     headers: {
       "Access-Control-Allow-Origin": "*"
     },
-    body: JSON.stringify(res.body)
+    body: "null"
   };
-  return respObj;
+  return JSON.stringify(respObj);
 };
 
 export const sendToFormstack = async (data: object) => {
@@ -59,7 +59,7 @@ export const sendToFormstack = async (data: object) => {
 
   await fetch(formstackUrl, request)
     .then(res => {
-      console.log(cleanResponse(res));
+      console.log("CLEAN RESPONSE", cleanResponse(res));
       return cleanResponse(res);
     })
     .catch(err => console.error(`POST request to Formstack failed: ${err}`));

@@ -6,7 +6,7 @@ export const handler = async (event, context, callback): Promise<void> => {
   try {
     const result = await sendToFormstack(event);
     console.log(result);
-    callback(null, "my response from lambda");
+    callback(null, { statusCode: 200, body: "results" });
   } catch (err) {
     console.log(err);
     callback(err);
