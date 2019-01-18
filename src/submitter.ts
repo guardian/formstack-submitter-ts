@@ -57,7 +57,7 @@ export const sendToFormstack = async (data: object) => {
   const reqBody: object = getDataBody(data);
   const request: object = { ...reqHeaders, body: reqBody };
 
-  await fetch(formstackUrl, request)
+  return await fetch(formstackUrl, request)
     .then(res => {
       console.log("RESULT FROM FORMSTACK:", res);
       return cleanResponse(res);
