@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
 import * as fetch from "node-fetch";
+import { parse } from "querystring";
 dotenv.config();
 
 const reqHeaders = {
@@ -49,6 +50,11 @@ export const sendToFormstack = async (data: object) => {
   const formId: string = getFormId(parsedDataBody);
   const formstackUrl: string = getFullUrl(formId);
   const request: object = { ...reqHeaders, body: parsedDataBody };
+
+  console.log("Formstack URL ====>", formstackUrl);
+
+  console.log("Parsed data body ====>", parsedDataBody);
+  console.log("Request object =====>", request);
 
   return await fetch(formstackUrl, request)
     .then(res => {
