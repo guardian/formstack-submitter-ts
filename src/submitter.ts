@@ -54,11 +54,6 @@ export const sendToFormstack = async (data: object) => {
     body: JSON.stringify(parsedDataBody)
   };
 
-  console.log("Formstack URL ====>", formstackUrl);
-
-  console.log("Parsed data body ====>", parsedDataBody);
-  console.log("Request object =====>", request);
-
   return await fetch(formstackUrl, request)
     .then(res => {
       return formatResponse(res);
