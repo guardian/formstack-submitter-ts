@@ -49,7 +49,10 @@ export const sendToFormstack = async (data: object) => {
   const parsedDataBody = parseRequest(data);
   const formId: string = getFormId(parsedDataBody);
   const formstackUrl: string = getFullUrl(formId);
-  const request: object = { ...reqHeaders, body: parsedDataBody };
+  const request: object = {
+    ...reqHeaders,
+    body: JSON.stringify(parsedDataBody)
+  };
 
   console.log("Formstack URL ====>", formstackUrl);
 
