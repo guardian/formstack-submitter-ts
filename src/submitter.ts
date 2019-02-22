@@ -14,7 +14,6 @@ const reqHeaders = {
 
 const parseRequest = (data): object => {
   try {
-    console.log("data ===>", JSON.parse(data.body));
     return JSON.parse(data.body);
   } catch (e) {
     console.error(`Invalid JSON - failed to parse request body ${data}`, e);
