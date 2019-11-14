@@ -27,7 +27,7 @@ Parameters:
   FormStackUrl:
     Description: URL for the Formstack API
     Type: String
-    Default: https://www.formstack.com/api/v2/
+    Default: https://www.formstack.com/api/v2
 Resources:
   Lambda:
     Type: AWS::Serverless::Function
@@ -41,8 +41,8 @@ Resources:
       Environment:
         Variables:
           Stage: !Ref Stage
-          OAUTH_TOKEN: OAuthToken
-          FORMSTACK_URL: FormStackUrl
+          OAUTH_TOKEN: !Ref OAuthToken
+          FORMSTACK_URL: !Ref FormStackUrl
       CodeUri:
         Bucket: !Ref DeployBucket
         Key: !Sub ${Stack}/${Stage}/${App}/${App}.zip
