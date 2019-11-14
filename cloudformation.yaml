@@ -21,6 +21,13 @@ Parameters:
     Description: Bucket to copy files to
     Type: String
     Default: content-api-dist
+  OAuthToken:
+    Description: Token used for Formstack authentication
+    Type: String
+  FormStackUrl:
+    Description: URL for the Formstack API
+    Type: String
+    Default: https://www.formstack.com/api/v2/
 Resources:
   Lambda:
     Type: AWS::Serverless::Function
@@ -34,6 +41,8 @@ Resources:
       Environment:
         Variables:
           Stage: !Ref Stage
+          OAUTH_TOKEN: OAuthToken
+          FORMSTACK_URL: FormStackUrl
       CodeUri:
         Bucket: !Ref DeployBucket
         Key: !Sub ${Stack}/${Stage}/${App}/${App}.zip
