@@ -33,18 +33,12 @@ jobs:
           yarn run build
       - name: Copy package.json to target
         run: cp package.json target
-      - name: Copy cloudformation.yaml to target
-        run: cp cloudformation.yaml target
-      - name: Go to target and install everything there in prod mode
+      - name: Prepare the bundle
         run: |
+          mkdir -p dist
           cd target
+          zip -r ../dist/formstack-submitter-ts.zip *
           yarn --production
-      - name: Head back up a dir
-        run: cd ..
-      - name: Make a dist dir and create a .zip file there
-        run: |
-          mkdir dist
-          zip -r dist/formstack-submitter-ts.zip target
       - name: Acquire RiffRaff AWS role
         uses: aws-actions/configure-aws-credentials@v1
         with:
