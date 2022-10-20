@@ -7,7 +7,7 @@ deployments:
     dependencies: [formstack-submitter-ts-cloudformation]
     parameters:
       prefixStack: false
-      bucket: content-api-dist
+      bucketSsmLookup: true
       fileName: formstack-submitter-ts.zip
       functionNames: [formstack-submitter-ts-]
   formstack-submitter-ts-cloudformation:
