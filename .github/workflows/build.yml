@@ -33,6 +33,8 @@ jobs:
           yarn run build
       - name: Copy package.json to target
         run: cp package.json target
+      - name: Copy cloudformation.yaml to target
+        run: cp cloudformation.yaml target
       - name: Go to target and install everything there in prod mode
         run: |
           cd target
