@@ -33,6 +33,8 @@ jobs:
           yarn run build
       - name: Copy package.json to target
         run: cp package.json target
+      - name: Copy cloudformation.yaml to target
+        run: cp cloudformation.yaml target
       - name: Go to target and install everything there in prod mode
         run: |
           cd target
@@ -48,7 +50,7 @@ jobs:
         with:
           aws-region: eu-west-1
           role-to-assume: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
-          role-session-name: kindle-publication-check-build
+          role-session-name: formstack-submitter-ts-build
       - name: Send the .zip and riff-raff.yaml files from dist to S3
         uses: guardian/actions-riff-raff@v2
         with:
