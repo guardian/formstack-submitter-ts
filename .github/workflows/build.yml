@@ -37,8 +37,8 @@ jobs:
         run: |
           mkdir -p dist
           cd target
-          zip -r ../dist/formstack-submitter-ts.zip *
           yarn --production
+          zip -r ../dist/formstack-submitter-ts.zip *
       - name: Acquire RiffRaff AWS role
         uses: aws-actions/configure-aws-credentials@v1
         with:
