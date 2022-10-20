@@ -10,7 +10,7 @@ deployments:
       bucketSsmLookup: true
       fileName: formstack-submitter-ts.zip
       functionNames: [formstack-submitter-ts-]
-  formstack-submitter-ts-cloudformation:
+  cloudformation:
     type: cloud-formation
     app: formstack-submitter-ts
     parameters:

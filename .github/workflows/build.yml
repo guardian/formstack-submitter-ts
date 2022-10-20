@@ -61,4 +61,5 @@ jobs:
           contentDirectories: |
             formstack-submitter-ts:
               - dist/formstack-submitter-ts.zip
+            cloudformation:
               - cloudformation.yaml
