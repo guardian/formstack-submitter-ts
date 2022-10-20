@@ -4,7 +4,7 @@ regions: [eu-west-1]
 deployments:
   formstack-submitter-ts:
     type: aws-lambda
-    dependencies: [formstack-submitter-ts-cloudformation]
+    dependencies: [cloudformation]
     parameters:
       prefixStack: false
       bucketSsmLookup: true
