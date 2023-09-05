@@ -34,7 +34,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${App}-${Stage}
       Description: Sends requests to Formstack 
-      Runtime: nodejs14.x
+      Runtime: nodejs18.x
       Handler: lambda.handler
       MemorySize: 128
       Timeout: 300
