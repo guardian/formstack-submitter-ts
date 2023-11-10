@@ -38,6 +38,7 @@ Resources:
       Handler: lambda.handler
       MemorySize: 128
       Timeout: 300
+      ReservedConcurrentExecutions: 20
       Environment:
         Variables:
           Stage: !Ref Stage
