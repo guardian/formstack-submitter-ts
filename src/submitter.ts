@@ -8,8 +8,8 @@ const reqHeaders = {
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    Authorization: `Bearer ${process.env.OAUTH_TOKEN}`
-  }
+    Authorization: `Bearer ${process.env.OAUTH_TOKEN}`,
+  },
 };
 
 const parseRequest = (data): object => {
