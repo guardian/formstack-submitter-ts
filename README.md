@@ -7,7 +7,7 @@ The data comes from reader callout forms submitted on the user interface.
 ## To test locally
 
 Run the local file: `npm run runlocal`
-Ensure to put environment variables `FORMSTACK_TOKEN` and `API_TOKEN` on terminal before running above command.
+Ensure to put environment variables `FORMSTACK_URL` and `API_TOKEN` on terminal before running above command.
 Please refer stage CODE in content-api stack.
 
 ## Formstack integration issues
