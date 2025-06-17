@@ -17,3 +17,5 @@ If the integration with Formstack is broken, it’s likely due to an expired or 
 To resolve this, contact Central Production for Admin access to the Formstack account. The simplest solution is to generate a new access token by creating a new API Application.
 
 Then, update the Cloudformation stack entry.
+
+This repo uses the same credentials that https://github.com/guardian/targeting uses for authenticating with Formstack.
