@@ -13,6 +13,6 @@ const testfunc = (text: string): void => {
   console.log(text);
 };
 
-const run = async () => await handler(fakeEvent, "x", testfunc);
+const run = async () => await handler(fakeEvent);
 
 run();
