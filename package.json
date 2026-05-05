@@ -5,9 +5,6 @@
   "projectName": "Content Platforms::formstack-submitter-ts",
   "buildDir": "./target",
   "riffraffFile": "./riff-raff.yaml",
-  "engines": {
-    "node": ">=20.9.0"
-  },
   "dependencies": {
     "aws-sdk": "^2.953.0",
     "dotenv": "^10.0.0",
